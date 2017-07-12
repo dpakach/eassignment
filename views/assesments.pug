@@ -1,0 +1,19 @@
+extends layout
+
+include mixins/_storeCard
+block content
+  .inner
+    h2= title
+    if user && assesments
+      .stores
+        each assesment in assesments
+          +storeCard(assesment)
+    else if user && !assesment
+      p No assesments now! you can add them
+    else
+      p Register your account to start creating your Assesments
+      form(action="/register", method="GET")
+        input.button(type="submit", value="Register")
+      p Or, already have an account
+      form(action="/login", method="GET")
+        input.button(type="submit", value="login")

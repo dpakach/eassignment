@@ -1123,9 +1123,9 @@ var _dompurify2 = _interopRequireDefault(_dompurify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function searchResultsHTML(stores) {
-    return stores.map(function (store) {
-        return '\n        <a href="/store/' + store.slug + '" class="search__result" >\n            <strong>' + store.name + '</strong>\n        </a>\n        ';
+function searchResultsHTML(assesments) {
+    return assesments.map(function (assesment) {
+        return '\n        <a href="/assesment/' + assesment.slug + '" class="search__result" >\n            <strong>' + assesment.name + '</strong>\n        </a>\n        ';
     }).join('');
 }
 

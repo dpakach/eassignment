@@ -1,0 +1,19 @@
+extends layout
+
+include mixins/_storeCard
+block content
+  .inner
+    h2= title
+    if user && assignments
+      .stores
+        each assignment in assignments
+          +storeCard(assignment)
+    else if user && !assignments
+      p No assesments now, but you can add them!
+    else
+      p Register your account to start creating your Assignments
+      form(action="/register", method="GET")
+        input.button(type="submit", value="Register")
+      p Or, already have an account
+      form(action="/login", method="GET")
+        input.button(type="submit", value="login")

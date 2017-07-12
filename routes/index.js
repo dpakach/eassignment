@@ -1,37 +1,95 @@
 const express = require('express');
 const router = express.Router();
-const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
-const reviewController = require('../controllers/reviewController'); 
+const commentController = require('../controllers/commentController');
+const groupController = require('../controllers/groupController');
+const notificationController = require('../controllers/notificationController');
+
+const assesmentController = require('../controllers/assesmentController');
+const assignmentController = require('../controllers/assignmentController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', catchErrors(storeController.getStores));
-router.get('/stores', catchErrors(storeController.getStores));
-router.get('/stores/page/:page', catchErrors(storeController.getStores));
-router.get('/add', authController.isLoggedIn, storeController.addStore);
 
-router.post('/add',
-  storeController.upload,
-  catchErrors(storeController.resize),
-  catchErrors(storeController.createStore)
+router.get('/', catchErrors(assesmentController.getAssesments));
+
+
+
+router.get('/groups', catchErrors(groupController.getGroups));
+router.get('/groups/:slug', catchErrors(groupController.getGroupBySlug));
+router.post('/groups/:slug/join',groupController.join);
+router.post('/groups/:slug/leave', groupController.leave);
+router.get('/notifications', catchErrors(notificationController.getNotifications));
+//************************************************************************************************//
+//========================================ASSESMENTS==============================================//
+//************************************************************************************************//
+router.get('/assesments', catchErrors(assesmentController.getAssesments));
+router.get('/add/assesment',
+  authController.isLoggedIn,
+  authController.isInGroup,
+  assesmentController.addAssesment
+);
+router.post('/add/assesment',
+  assesmentController.upload,
+  catchErrors(assesmentController.resize),
+  catchErrors(assesmentController.createAssesment)
 );
 
-router.post('/add/:id',
-  storeController.upload,
-  catchErrors(storeController.resize),
-  catchErrors(storeController.updateStore)
+router.post('/add/assesment/:id',
+  assesmentController.upload,
+  catchErrors(assesmentController.resize),
+  catchErrors(assesmentController.updateAssesment)
 );
 
-router.get('/stores/:id/edit', catchErrors(storeController.editStore));
-router.get('/store/:slug', catchErrors(storeController.getStoreBySlug));
+router.get('/assesments/:id/edit', catchErrors(assesmentController.editAssesment));
+router.post('/addAssesment/:id',
+  assesmentController.upload,
+  catchErrors(assesmentController.resize),
+  catchErrors(assesmentController.updateAssesment)
+);
 
-router.get('/tags', catchErrors(storeController.getStoresByTag));
-router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
+router.get('/assesment/:slug', catchErrors(assesmentController.getAssesmentBySlug));
+//******************************************************************************************//
+//===========================================ASSIGNMENTS====================================//
+//******************************************************************************************//
+router.get('/assignments', catchErrors(assignmentController.getAssignments));
+router.get(
+  '/add/assignment',
+  authController.isLoggedIn,
+    authController.isInGroup,
+  assignmentController.addAssignment
+);
+router.post('/add/assignment',
+  assignmentController.upload,
+  catchErrors(assignmentController.resize),
+  catchErrors(assignmentController.createAssignment)
+);
 
+router.post('/add/assignment/:id',
+  assignmentController.upload,
+  catchErrors(assignmentController.resize),
+  catchErrors(assignmentController.updateAssignment)
+);
+
+router.get('/assignments/:id/edit', catchErrors(assignmentController.editAssignment));
+router.post('/addAssignment/:id',
+  assignmentController.upload,
+  catchErrors(assignmentController.resize),
+  catchErrors(assignmentController.updateAssignment)
+);
+
+router.get('/assignment/:slug', catchErrors(assignmentController.getAssignmentBySlug));
+
+
+//================================================================
 router.get('/login', userController.loginForm);
 router.post('/login', authController.login);
+
+router.get('/registerGroup', groupController.regGroup)
+
+
 router.get('/register', userController.registerForm);
+router.get('/logout', authController.logout);
 
 // 1. Validate the registration data
 // 2. register the user
@@ -41,11 +99,23 @@ router.post('/register',
   userController.register,
   authController.login
 );
-
-router.get('/logout', authController.logout);
+router.post('/registerGroup',
+  groupController.register
+);
 
 router.get('/account', authController.isLoggedIn, userController.account);
 router.post('/account', catchErrors(userController.updateAccount));
+
+
+router.post('/addAssesment', 
+    assesmentController.upload, 
+    catchErrors(assesmentController.resize), 
+    catchErrors(assesmentController.createAssesment)
+);
+
+
+
+//========================USER-ACCOUNTS============================================//
 
 router.post('/account/forgot', catchErrors(authController.forgot));
 
@@ -54,19 +124,15 @@ router.post('/account/reset/:token',
     authController.confirmedPasswords, 
     catchErrors(authController.update)
 );
-router.get('/map', storeController.mapPage);
-router.get('/hearts',authController.isLoggedIn, catchErrors(storeController.showHearted));
 
-router.post('/reviews/:id', authController.isLoggedIn, catchErrors(reviewController.addReview));
-router.get('/top', catchErrors(storeController.getTopStores));
-
-//api 
-
-router.get('/api/search', catchErrors(storeController.searchStores));
-router.get('/api/stores/near', catchErrors(storeController.mapStores));
-router.post('/api/stores/:id/heart',catchErrors(storeController.heartStore));
+router.post('/reviews/:id', authController.isLoggedIn, catchErrors(commentController.addComment));
 
 
+
+
+//=====================================API=========================================//
+
+router.get('/api/search', catchErrors(assesmentController.searchAssesments));
 
 
 module.exports = router;

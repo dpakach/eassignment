@@ -1,0 +1,4 @@
+mixin commentForm(data)
+    form.reviewer(action=`/reviews/${data._id}` method="POST")
+        textarea(name="text" placeholder="Say something about this. It might help others!")
+        input.button(type="submit" value="submit Comment")

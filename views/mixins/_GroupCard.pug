@@ -1,0 +1,11 @@
+mixin storeCard(assesment = {})
+  .store
+    .store__hero
+      .store__actions
+      img(src=`/uploads/${assesment.photo || 'store.png'}`)
+      h2.title
+        - const hUrl = `/groups/${assesment.slug}`
+        a(href= hUrl) #{assesment.name}
+        
+    .store__details
+      p= assesment.description

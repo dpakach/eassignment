@@ -15,6 +15,11 @@ const userSchema = new Schema({
     validate: [validator.isEmail, 'Invalid Email Address'],
     required: 'Please Supply an email address'
   },
+
+  group : {
+    type: mongoose.Schema.ObjectId, 
+    ref: 'Group'
+  },
   name: {
     type: String,
     required: 'Please supply a name',
@@ -22,10 +27,6 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  hearts: [
-    {type: mongoose.Schema.ObjectId, ref: 'Store' }
-  ]
-
 }); 
 
 userSchema.virtual('gravatar').get(function() {
@@ -33,7 +34,16 @@ userSchema.virtual('gravatar').get(function() {
   return `https://gravatar.com/avatar/${hash}?s=200`;
 });
 
+
+
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
+
+function autoPopulate(next) {
+    this.populate('group');
+    next();
+}
+
+userSchema.pre( 'save', autoPopulate);
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .inner
+
+        form.form(action="/registerGroup" method="POST")
+            h2 Register Group
+            label(for="name") Name
+            input(type="text" name="name")
+            label(for="description") Description
+            textArea( name="description")
+            input.button(type="submit" value="Register →")

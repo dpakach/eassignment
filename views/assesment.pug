@@ -1,0 +1,35 @@
+extends layout
+
+include mixins/_commentForm
+include mixins/_comment
+
+block content
+    .single
+        .single__hero
+            img.single__image(src= `/uploads/${assesment.photo || 'store.png'}`)
+            h2.title.title--single
+                a(href=`/assesment/${assesment.slug}`) #{assesment.name}
+    .single__details.inner
+        - const ondate = h.moment(assesment.onDate).fromNow();
+        - const realDate = h.moment(assesment.onDate).format('MMM-DD - YYYY');
+        h1 Assesment  #{ondate}
+        p= assesment.description
+        
+        p Assesment Date: #{realDate}
+        if assesment.marks
+            p marks : #{assesment.marks} 
+        p 
+            strong 
+                em -Added by </br>
+                img.avatar(src= assesment.author.gravatar)
+                em #{assesment.author.name}
+        if user
+            +commentForm(assesment)
+        if assesment.comments   
+            .reviews
+                each comment in assesment.comments
+                    .review
+                        +comment(comment)
+
+
+                        

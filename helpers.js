@@ -18,7 +18,7 @@ exports.staticMap = ([lng, lat]) => `https://maps.googleapis.com/maps/api/static
 exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 
 // Some details about the site
-exports.siteName = `Now That's Delicious!`;
+exports.siteName = `Assignments!`;
 
 exports.menu = [
   { slug: '/assesments', title: 'Assesments', icon: 'store'},
@@ -26,5 +26,4 @@ exports.menu = [
   { slug: '/add/assesment', title: 'Add Assesment', icon: 'add', },
   { slug: '/add/assignment', title: 'Add Assignment', icon: 'add', },
   { slug: '/groups', title: 'Groups', icon: 'map'},
-  
 ];

@@ -6,37 +6,38 @@ block content
             img.single__image(src= `/uploads/${group.photo || 'store.png'}`)
             h2.title.title--single
                 a(href=`/groups/${group.slug}`) #{group.name}
-                
-    .single__details.inner
-        pre= h.dump(group)
-        pre= h.dump(user)
-        //-if user
-            - const usergroup = user.group.toString()
-            - const groupid = group._id.toString()    
-        p= group.description
 
-        if user
-            if (user.group  && user.group === group._id)
-                form(action=`/groups/${group.slug}/leave` method="POST")
-                    input.button(type="submit" value="Leave Group" style="background : #ff5577;")
-            else
+    .single__details.inner
+        p= group.description
+        //-pre= h.dump(user)
+        //-pre= h.dump(group)
+        if !user
+            p you need to login in order to join this group
+              a(href="/login")   click here to login
+
+        else
+            if !user.group || user.group.slug != group.slug
                 form(action=`/groups/${group.slug}/join` method="POST")
                     input.button(type="submit" value="Join Group")
 
+            else 
+                form(action=`groups/${group.slug}/leave` method="Post")
+                    input.button(type="submit" value="Leave Group" style="background: #ff5577")
+                
+                
         br
         br
         if group.author
             p creator - #{group.author.name}
+        p
+            strong MEMBERS
         table.table
             thead
                 td Members
-                td Name
 
             each user in group.users
                 -const name = user.name.toUpperCase()
-                tr 
+                tr
                     td
                         img.avatar(src= user.gravatar)
-                    td
-                        p
-                            strong= name
+                        strong= name

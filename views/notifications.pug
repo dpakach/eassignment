@@ -3,13 +3,17 @@ extends layout
 include mixins/_GroupCard
 block content
   .inner
-    table.table
+    h1= title
+    if !events
+        p No events now! create an events from the add section.
+    else
+        table.table
             thead
                 td DATE
                 td EVENTS
 
             each e in events
-                -const date = h.moment(e.onDate).format('MMM-DD - YYYY')
+                -const date = h.moment(e.onDate).format('MMM-DD-YYYY')
                 if e.dataModel == 'assesment'
                   tr(style="background-color: lightblue") 
                     td
@@ -19,7 +23,7 @@ block content
                             strong 
                               p #{e.dataModel.toUpperCase()}
                               p #{e.name} 
-                            p= e.description.split(' ').slice(0, 10).join(' ')
+                            p= e.description.split(' ').slice(0, 20).join(' ')
                 else
                   tr(style="background-color: lightgreen") 
                     td

@@ -16,9 +16,9 @@ const userSchema = new Schema({
     required: 'Please Supply an email address'
   },
 
-  group : {
-    type: mongoose.Schema.ObjectId, 
-    ref: 'Group'
+  group: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Group'
   },
   name: {
     type: String,
@@ -27,7 +27,7 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-}); 
+});
 
 userSchema.virtual('gravatar').get(function() {
   const hash = md5(this.email);
@@ -39,11 +39,23 @@ userSchema.virtual('gravatar').get(function() {
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 userSchema.plugin(mongodbErrorHandler);
 
+
+//User.find({}).populate('group');
 function autoPopulate(next) {
     this.populate('group');
     next();
 }
 
-userSchema.pre( 'save', autoPopulate);
+// function autoPopulate(next) {
+//     this.populate('group');
+//     next();
+// }
+
+// userSchema.pre('save' , autoPopulate);
+// userSchema.pre('find', autoPopulate);
+userSchema.pre('findOne',autoPopulate );
+
+
+
 
 module.exports = mongoose.model('User', userSchema);

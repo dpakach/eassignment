@@ -28,7 +28,7 @@ const assesmentSchema = new mongoose.Schema({
         type: [String],
         trim: true
     },
-    photo: [String],
+    photos: [String],
     created: {
         type: Date,
         default: Date.now

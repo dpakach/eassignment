@@ -18,7 +18,7 @@ router.get('/', catchErrors(assesmentController.getAssesments));
 router.get('/groups', catchErrors(groupController.getGroups));
 router.get('/groups/:slug', catchErrors(groupController.getGroupBySlug));
 router.post('/groups/:slug/join',groupController.join);
-router.post('/groups/:slug/leave', groupController.leave);
+router.post('/groups/groups/:slug/leave', groupController.leave);
 router.get('/notifications', catchErrors(notificationController.getNotifications));
 //************************************************************************************************//
 //========================================ASSESMENTS==============================================//
@@ -37,7 +37,7 @@ router.post('/add/assesment',
 
 router.post('/add/assesment/:id',
   assesmentController.upload,
-  catchErrors(assesmentController.resize),
+  catchErrors(assignmentController.resize),
   catchErrors(assesmentController.updateAssesment)
 );
 
@@ -107,9 +107,9 @@ router.get('/account', authController.isLoggedIn, userController.account);
 router.post('/account', catchErrors(userController.updateAccount));
 
 
-router.post('/addAssesment', 
-    assesmentController.upload, 
-    catchErrors(assesmentController.resize), 
+router.post('/addAssesment',
+    assesmentController.upload,
+    catchErrors(assesmentController.resize),
     catchErrors(assesmentController.createAssesment)
 );
 
@@ -120,8 +120,8 @@ router.post('/addAssesment',
 router.post('/account/forgot', catchErrors(authController.forgot));
 
 router.get('/account/reset/:token', catchErrors(authController.reset));
-router.post('/account/reset/:token', 
-    authController.confirmedPasswords, 
+router.post('/account/reset/:token',
+    authController.confirmedPasswords,
     catchErrors(authController.update)
 );
 
@@ -136,5 +136,3 @@ router.get('/api/search', catchErrors(assesmentController.searchAssesments));
 
 
 module.exports = router;
-
- 

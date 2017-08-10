@@ -16,6 +16,7 @@ exports.getGroups = async (req, res, next) => {
   res.render('groups', {title: 'Groups', groups});
 }
 
+
 exports.getGroupBySlug = async (req, res, next) => {
   const group = await Group.findOne({slug: req.params.slug});
   res.render('group', {tile: group.name, group});
@@ -29,7 +30,7 @@ exports.join = async(req, res, next) => {
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: updates},
-    { new: true, runValidators: true, context: 'query'}  
+    { new: true, runValidators: true, context: 'query'}
   );
   req.flash('success' , 'Sucussfully joined the group');
   res.redirect('back');
@@ -42,7 +43,7 @@ exports.leave = async(req, res, next) => {
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: updates},
-    { new: true, runValidators: true, context: 'query'}  
+    { new: true, runValidators: true, context: 'query'}
   );
   req.flash('success' , 'Sucussfully left the group');
   res.redirect('back');

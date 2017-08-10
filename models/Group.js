@@ -18,9 +18,9 @@ const groupSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId, 
         ref: 'User'
     }
-
-
 });
+
+
 
 groupSchema.pre('save',  async function(next) {
     if(!this.isModified('name')){

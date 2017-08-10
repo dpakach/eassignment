@@ -15,9 +15,14 @@ block content
         h1 Assesment  #{ondate}
         p= assesment.description
         
+
+        pre=h.dump(assesment)
         p Assesment Date: #{realDate}
         if assesment.marks
             p marks : #{assesment.marks} 
+        if assesment.photos
+            each photo in assesment.photos
+                img(src=`/uploads/${photo}`)
         p 
             strong 
                 em -Added by </br>

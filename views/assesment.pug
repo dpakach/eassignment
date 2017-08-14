@@ -16,18 +16,28 @@ block content
         p= assesment.description
         
 
-        pre=h.dump(assesment)
+        //-pre=h.dump(assesment)
         p Assesment Date: #{realDate}
         if assesment.marks
-            p marks : #{assesment.marks} 
+            p marks : #{assesment.marks}
+        h1 photos
+        .data-photos
+            if assesment.photo
+              each photo in assesment.photo
+                a(href=`/uploads/${photo}` data-lightbox= "gallery" class= "")
+                  img(src= `/uploads/${photo}` class="data-photo" style="height: 100px; width: auto; margin: 2px; padding: 2px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);")
+             
         if assesment.photos
             each photo in assesment.photos
                 img(src=`/uploads/${photo}`)
-        p 
+        p
             strong 
-                em -Added by </br>
+                em(style="font-size: 1.5em;") -Added by
+                br
                 img.avatar(src= assesment.author.gravatar)
                 em #{assesment.author.name}
+                p #{h.moment(assesment.created).format('MMM-DD - YYYY')} 
+            p #{h.moment(assesment.created).fromNow()} 
         if user
             +commentForm(assesment)
         if assesment.comments   
@@ -35,6 +45,3 @@ block content
                 each comment in assesment.comments
                     .review
                         +comment(comment)
-
-
-                        

@@ -23,6 +23,10 @@ exports.getGroupBySlug = async (req, res, next) => {
 }
 
 exports.join = async(req, res, next) => {
+  if(req.user.group){
+    req.flash('error', 'You must leave your current group to join this one');
+    return res.redirect('back');
+  }
   const group = await Group.findOne({slug: req.params.slug});
   const updates = {
     group: group._id

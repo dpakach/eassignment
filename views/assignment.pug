@@ -15,14 +15,26 @@ block content
         h1  Assignment submission #{ondate}
         p= assignment.description
         
-        p Assesment Date: #{realDate}
+        p Date Of submission: #{realDate}
         if assignment.marks
             p marks : #{assignment.marks} 
-        p 
+        h1 photos
+        //-if assignment.photos
+          //-each photo in assignment.photos
+        .data-photos
+          if assignment.photo
+            each photo in assignment.photo
+              a(href=`/uploads/${photo}` data-lightbox= "gallery" class= "")
+                img(src= `/uploads/${photo}` class="data-photo" style="height: 100px; width: auto; margin: 2px; padding: 2px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);")
+          p
             strong 
-                em -Added by </br>
-                img.avatar(src= assignment.author.gravatar)
-                em #{assignment.author.name}
+              em(style="font-size: 1.5em;") -Added by
+              br
+              img.avatar(src= assignment.author.gravatar)
+              em #{assignment.author.name}
+              p #{h.moment(assignment.created).format('MMM-DD - YYYY')} 
+          p #{h.moment(assignment.created).fromNow()} 
+      
         if user
             +commentForm(assignment)
         if assignment.comments   

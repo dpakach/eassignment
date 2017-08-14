@@ -7,7 +7,7 @@ mixin storeCard(assesment = {})
             - const editUrl = `/${assesment.dataModel}s/${assesment._id}/edit` 
             a(href= editUrl)
               != h.icon('pencil')
-      //-img(src=`/uploads/${assesment.photo || 'assesment.png'}`)
+      img(src=`/uploads/${assesment.photo || 'assesment.png'}`)
       h2.title
         - const hUrl = `/${assesment.dataModel}/${assesment.slug}`
         a(href= hUrl) #{assesment.name}

@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const Assignment = mongoose.model('Assignment');
-const Assesment = mongoose.model('Assesment');
-
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
 const User = mongoose.model('User');
+const _ = require('lodash');
 
 
 const multerOptions = {

@@ -1,9 +1,9 @@
 mixin comment(comment)
     .review__header
         .review__author
-            img.avatar(src= comment.author.gravatar)
-            p 
+            img.avatar(src= comment.author.gravatar style="padding: 1px; margin: 1px")
+            p(style="padding: 1px; margin: 1px") 
                 strong= comment.author.name
         time.review__time(datetime = comment.created)= h.moment(comment.created).fromNow()
     .review__body
-        p= comment.text 
+        p(style="padding: 1px; margin: 1px")= comment.text 

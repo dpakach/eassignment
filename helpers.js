@@ -21,9 +21,9 @@ exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = `Assignments!`;
 
 exports.menu = [
-  { slug: '/assesments', title: 'Assesments', icon: 'store'},
   { slug: '/assignments', title: 'Assignments', icon: 'map'},
+  { slug: '/assesments', title: 'Assesments', icon: 'store'},
+  { slug: '/add/assignment', title: `Add Assignment`, icon: 'add', },
   { slug: '/add/assesment', title: 'Add Assesment', icon: 'add', },
-  { slug: '/add/assignment', title: 'Add Assignment', icon: 'add', },
   { slug: '/groups', title: 'Groups', icon: 'map'},
 ];

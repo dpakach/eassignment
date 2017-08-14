@@ -6,7 +6,7 @@ const slug = require('slugs');
 const assignmentSchema = new mongoose.Schema({
     dataModel:{
         type: String,
-        default: 'assignment'
+        default: 'assesment'
     },
     name: {
         type: String,
@@ -17,7 +17,8 @@ const assignmentSchema = new mongoose.Schema({
     group: {
         type: mongoose.Schema.ObjectId,
         ref: 'Group',
-        required : true,    },
+        required : true    
+    },
     description: {
         type: String,
         trim: true,

@@ -6,12 +6,9 @@ mixin storeForm(store = {})
     textarea(name="description")= store.description
     label(for="onDate") Date
     input(type="date" name="onDate" value= -store.onDate)
-    label(for="marks") Marks
-    input(type="number" name="marks" min="0" max="100" value= store.marks)
     //- Image Upload
     label(for="photo") Photo
-      input(type="file" name="photos[]" multiple= "multiple" id="photo" accept="image/gif, image/png, image/jpeg")
-      if store.photos
-        each photo in photos
-            img(src=`/uploads/${store.photo}`, alt=store.name width=200)
+      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+      if store.photo
+        img(src=`/uploads/${store.photo}`, alt=store.name width=200)
     input(type="submit" value="Save →" class="button")

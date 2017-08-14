@@ -5,7 +5,6 @@ const authController = require('../controllers/authController');
 const commentController = require('../controllers/commentController');
 const groupController = require('../controllers/groupController');
 const notificationController = require('../controllers/notificationController');
-
 const assesmentController = require('../controllers/assesmentController');
 const assignmentController = require('../controllers/assignmentController');
 const { catchErrors } = require('../handlers/errorHandlers');
@@ -37,7 +36,7 @@ router.post('/add/assesment',
 
 router.post('/add/assesment/:id',
   assesmentController.upload,
-  catchErrors(assignmentController.resize),
+  catchErrors(assesmentController.resize),
   catchErrors(assesmentController.updateAssesment)
 );
 
@@ -56,7 +55,7 @@ router.get('/assignments', catchErrors(assignmentController.getAssignments));
 router.get(
   '/add/assignment',
   authController.isLoggedIn,
-    authController.isInGroup,
+  authController.isInGroup,
   assignmentController.addAssignment
 );
 router.post('/add/assignment',

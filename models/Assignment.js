@@ -6,7 +6,7 @@ const slug = require('slugs');
 const assignmentSchema = new mongoose.Schema({
     dataModel:{
         type: String,
-        default: 'assesment'
+        default: 'assignment'
     },
     name: {
         type: String,
@@ -17,7 +17,7 @@ const assignmentSchema = new mongoose.Schema({
     group: {
         type: mongoose.Schema.ObjectId,
         ref: 'Group',
-        required : true    
+        required : true
     },
     description: {
         type: String,
@@ -28,7 +28,7 @@ const assignmentSchema = new mongoose.Schema({
         type: [String],
         trim: true
     },
-    photo: [String],
+    photos: [String],
     created: {
         type: Date,
         default: Date.now
@@ -40,7 +40,7 @@ const assignmentSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.ObjectId,
         ref:  'User',
-        required: 'You must define an author' 
+        required: 'You must define an author'
     }
 }, {
     toJSON: {virtuals: true},
@@ -52,8 +52,8 @@ assignmentSchema.pre('save',  async function(next) {
         return next();
     };
     this.slug = slug(this.name);
-    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i'); 
-    const assignmentsWithSlug = await this.constructor.find({slug: slugRegEx}); 
+    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+    const assignmentsWithSlug = await this.constructor.find({slug: slugRegEx});
     if(assignmentsWithSlug.length){
         this.slug= `${this.slug}-${assignmentsWithSlug.length + 1}`;
     }

@@ -9,16 +9,20 @@ const assesmentController = require('../controllers/assesmentController');
 const assignmentController = require('../controllers/assignmentController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-
 router.get('/', catchErrors(assesmentController.getAssesments));
 
 
+//************************************************************************************************//
+//===========================================GROUPS===============================================//
+//************************************************************************************************//
 
 router.get('/groups', catchErrors(groupController.getGroups));
 router.get('/groups/:slug', catchErrors(groupController.getGroupBySlug));
 router.post('/groups/:slug/join',groupController.join);
 router.post('/groups/groups/:slug/leave', groupController.leave);
 router.get('/notifications', catchErrors(notificationController.getNotifications));
+
+
 //************************************************************************************************//
 //========================================ASSESMENTS==============================================//
 //************************************************************************************************//
@@ -48,9 +52,13 @@ router.post('/addAssesment/:id',
 );
 
 router.get('/assesment/:slug', catchErrors(assesmentController.getAssesmentBySlug));
+
+
 //******************************************************************************************//
 //===========================================ASSIGNMENTS====================================//
 //******************************************************************************************//
+
+
 router.get('/assignments', catchErrors(assignmentController.getAssignments));
 router.get(
   '/add/assignment',
@@ -132,6 +140,6 @@ router.post('/reviews/:id', authController.isLoggedIn, catchErrors(commentContro
 //=====================================API=========================================//
 
 router.get('/api/search', catchErrors(assesmentController.searchAssesments));
-
+router.get('/api/search', catchErrors(assesmentController.searchAssesments));
 
 module.exports = router;

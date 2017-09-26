@@ -53,7 +53,7 @@ exports.updateAccount = async (req, res) => {
   const user = await User.findOneAndUpdate(
     { _id: req.user._id },
     { $set: updates},
-    { new: true, runValidators: true, context: 'query'}  
+    { new: true, runValidators: true, context: 'query'}
   );
   req.flash('success' , 'Your Account has been sucessfully updated');
   res.redirect('back');

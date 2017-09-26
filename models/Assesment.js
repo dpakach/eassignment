@@ -40,7 +40,7 @@ const assesmentSchema = new mongoose.Schema({
     author: {
         type: mongoose.Schema.ObjectId,
         ref:  'User',
-        required: 'You must define an author' 
+        required: 'You must define an author'
     },
     completed: {
         type: Boolean,
@@ -61,8 +61,8 @@ assesmentSchema.pre('save',  async function(next) {
         return next();
     };
     this.slug = slug(this.name);
-    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i'); 
-    const assesmentsWithSlug = await this.constructor.find({slug: slugRegEx}); 
+    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+    const assesmentsWithSlug = await this.constructor.find({slug: slugRegEx});
     if(assesmentsWithSlug.length){
         this.slug= `${this.slug}-${assesmentsWithSlug.length + 1}`;
     }
@@ -77,4 +77,3 @@ assesmentSchema.virtual('comments', {
 });
 
 module.exports = mongoose.model('Assesment', assesmentSchema);
-

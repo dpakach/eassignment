@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Assesment = mongoose.model('Assesment');
+const Assignment = mongoose.model('Assignment');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -21,12 +22,57 @@ const multerOptions = {
 
 exports.upload = multer(multerOptions).single('photo');
 
+
+
+// exports.resize = async(req, res, next) => {
+//   if(!req.files){
+//     return next();
+//   }
+//   convertImages(req.files);
+//   // _.forEach(req.files, (file) => {
+//   //   const extension = file.mimetype.split('/')[1];
+//   //   const photoName = `${uuid.v4()}.${extension}`
+//   //   req.body.photos.push(photoName);
+//   //
+//   //   new jimp(file.buffer, (err, image) => {
+//   //     await image.resize(800, jimp.AUTO);
+//   //     await photo.write(`./public/uploads/${photoName}`);
+//   //   });
+//   //
+//   //   //
+//   //   //
+//   //   // const photo = await jimp.read(file.buffer);
+//   //   // await photo.resize(800, jimp.AUTO);
+//   //   // await photo.write(`./public/uploads/${req.body.photo}`);
+//   // })
+//   next();
+// }
+
+
+// var convertImages = (files) => {
+//   let promises = [];
+//   _.forEach(files, file => {
+//     const extension = file.mimetype.split('/')[1];
+//     const photoName = `${uuid.v4()}.${extension}`
+//     req.body.photos.push(photoName);
+//     let promise = new Promise((resolve, reject) => {
+//         let type = fileType(file.buffer);
+//         new jimp(file.buffer, (err, image) => {
+//           image.resize(800, jimp.AUTO)
+//                .write(`./public/uploads/${photoName}`);
+//         });
+//     });
+//   });
+// }
+
+
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize
   if (!req.file) {
     next(); // skip to the next middleware
     return;
   }
+  console.log(req.file);
   const extension = req.file.mimetype.split('/')[1];
   req.body.photo = `${uuid.v4()}.${extension}`;
   // now we resize
@@ -121,3 +167,31 @@ exports.searchAssesments = async (req, res) => {
   .limit(5);
   res.json(assesments);
 }
+
+
+
+// exports.searchAssesments = async (req, res) => {
+//   let results;
+//   const assignments = await Assignment.find({
+//     $text : {
+//       $search: req.query.q
+//     }
+//   },{
+//       score: {$meta:'textScore'}
+//     })
+//   .limit(5);
+//   const assesments = await Assesment.find({
+//     $text : {
+//       $search: req.query.q
+//     }
+//   }, {
+//     score: {$meta: 'textScore'}
+//   })
+//   .limit(5);
+//   results.push(assignments);
+//   results.push(assesments);
+//   results.sort({
+//     score: {$meta: 'textScore'}
+//   });
+//   res.json(results);
+// }

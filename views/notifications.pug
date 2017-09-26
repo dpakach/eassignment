@@ -4,8 +4,10 @@ include mixins/_GroupCard
 block content
   .inner
     h1= title
-    if !events
-        p No events now! create an events from the add section.
+    
+    if (events.length == 0)
+        p No events now! Looks like a time to have fun!
+        p You can create an event from the add section.
     else
         table.table
             thead

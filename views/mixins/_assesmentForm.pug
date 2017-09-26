@@ -8,7 +8,7 @@ mixin storeForm(store = {})
     input(type="date" name="onDate" value= -store.onDate)
     //- Image Upload
     label(for="photo") Photo
-      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+      input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg" multiple)
       if store.photo
         img(src=`/uploads/${store.photo}`, alt=store.name width=200)
     input(type="submit" value="Save →" class="button")

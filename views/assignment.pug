@@ -24,7 +24,7 @@ block content
         .data-photos
           if assignment.photo
             each photo in assignment.photo
-              a(href=`/uploads/${photo}` data-lightbox= "gallery" class= "")
+              a(href=`/uploads/${photo}` data-lightbox= "gallery")
                 img(src= `/uploads/${photo}` class="data-photo" style="height: 100px; width: auto; margin: 2px; padding: 2px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);")
           p
             strong 

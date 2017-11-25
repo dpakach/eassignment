@@ -7,6 +7,8 @@ const promisify = require('es6-promisify');
 exports.register = async (req, res, next) => {
   req.body.author = req.user;
   const group = await (new Group(req.body)).save();
+  req.params.slug = group.slug
+  joinGroup()
   req.flash('success', 'Group created sucessfully!');
   res.redirect('/groups');
 };
@@ -22,7 +24,7 @@ exports.getGroupBySlug = async (req, res, next) => {
   res.render('group', {tile: group.name, group});
 }
 
-exports.join = async(req, res, next) => {
+var joinGroup = async(req, res, next) => {
   if(req.user.group){
     req.flash('error', 'You must leave your current group to join this one');
     return res.redirect('back');
@@ -39,6 +41,8 @@ exports.join = async(req, res, next) => {
   req.flash('success' , 'Sucussfully joined the group');
   res.redirect('back');
 }
+
+exports.join = joinGroup;
 
 exports.leave = async(req, res, next) => {
   const updates = {

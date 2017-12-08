@@ -6,7 +6,7 @@ include mixins/_comment
 block content
     .single
         .single__hero
-            img.single__image(src= `/uploads/${assesment.photo || 'store.png'}`)
+            img.single__image(src= `/uploads/${'store.png'}`)
             h2.title.title--single
                 a(href=`/assesment/${assesment.slug}`) #{assesment.name}
     .single__details.inner
@@ -14,9 +14,7 @@ block content
         - const realDate = h.moment(assesment.onDate).format('MMM-DD - YYYY');
         h1 Assesment  #{ondate}
         p= assesment.description
-        
 
-        //-pre=h.dump(assesment)
         p Assesment Date: #{realDate}
         if assesment.marks
             p marks : #{assesment.marks}
@@ -26,21 +24,17 @@ block content
               each photo in assesment.photo
                 a(href=`/uploads/${photo}` data-lightbox= "gallery" class= "")
                   img(src= `/uploads/${photo}` class="data-photo" style="height: 100px; width: auto; margin: 2px; padding: 2px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);")
-             
-        if assesment.photos
-            each photo in assesment.photos
-                img(src=`/uploads/${photo}`)
         p
-            strong 
+            strong
                 em(style="font-size: 1.5em;") -Added by
                 br
                 img.avatar(src= assesment.author.gravatar)
                 em #{assesment.author.name}
-                p #{h.moment(assesment.created).format('MMM-DD - YYYY')} 
-            p #{h.moment(assesment.created).fromNow()} 
+                p #{h.moment(assesment.created).format('MMM-DD - YYYY')}
+            p #{h.moment(assesment.created).fromNow()}
         if user
             +commentForm(assesment)
-        if assesment.comments   
+        if assesment.comments
             .reviews
                 each comment in assesment.comments
                     .review

@@ -9,8 +9,6 @@ block content
 
     .single__details.inner
         p= group.description
-        //-pre= h.dump(user)
-        //-pre= h.dump(group)
         if !user
             p you need to login in order to join this group
               a(href="/login")   click here to login
@@ -20,11 +18,11 @@ block content
                 form(action=`/groups/${group.slug}/join` method="POST")
                     input.button(type="submit" value="Join Group")
 
-            else 
+            else
                 form(action=`groups/${group.slug}/leave` method="Post")
                     input.button(type="submit" value="Leave Group" style="background: #ff5577")
-                
-                
+
+
         br
         br
         if group.author

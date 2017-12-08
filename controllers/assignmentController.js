@@ -23,58 +23,7 @@ const multerOptions = {
 
 
 
-exports.upload = multer(multerOptions).array('photo');
-
-
-
-//
-// 
-//
-// exports.convertImages = convertImgs(files){
-//
-//         let promises = [];
-//
-//         _.forEach(files, (file)=>{
-//
-//             //Create a new promise for each image processing
-//             let promise = new Promise((resolve, reject)=>{
-//
-//             //Resolve image file type
-//             let type = fileType(file.buffer);
-//
-//             //Create a jimp instance for this image
-//             new Jimp(file.buffer, (err, image)=>{
-//
-//                 //Resize this image
-//                 image.resize(800, jimp.AUTO)
-//                     //lower the quality by 90%
-//                     .quality(10)
-//                     .getBuffer(type.mime, (err, buffer)=>{
-//                         //Transfer image file buffer to base64 string
-//                         let base64Image = buffer.toString('base64');
-//                         let imgSrcString = "data:" + type.mime + ';base64, ' + base64Image;
-//                         //Resolve base94 string
-//                         resolve(imgSrcString);
-//                     });
-//                 })
-//             });
-//
-//             promises.push(promise);
-//         });
-//
-//         //Return promise array
-//         return Promise.all(promises);
-//     }
-// };
-
-
-
-
-
-
-
-
-
+exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize
@@ -92,28 +41,6 @@ exports.resize = async (req, res, next) => {
   // once we have written the photo to our filesystem, keep going!
   next();
 };
-
-
-// exports.resize = async (req, res, next) => {
-//   // check if there is no new file to resize
-//   if (!req.files) {
-//     next(); // skip to the next middleware
-//     return;
-//   }
-//   req.files.map((file) => {
-//     const extension = file.mimetype.split('/')[1];
-//     req.body.photos.push(`${uuid.v4()}.${extension}`);
-//     // now we resize
-//     const photo = await jimp.read(file.buffer);
-//     await photo.resize(800, jimp.AUTO);
-//     await photo.write(`./public/uploads/${req.body.photo}`);
-//     // once we have written the photo to our filesystem, keep going!
-//   });
-//   next();
-// };
-
-
-exports.upload = multer(multerOptions).single('photo');
 
 
 exports.addAssignment = (req, res) => {

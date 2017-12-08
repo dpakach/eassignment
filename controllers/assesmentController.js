@@ -20,7 +20,6 @@ const multerOptions = {
 };
 
 
-exports.upload = multer(multerOptions).single('photo');
 
 
 
@@ -63,6 +62,8 @@ exports.upload = multer(multerOptions).single('photo');
 //   });
 // }
 
+
+exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
   // check if there is no new file to resize

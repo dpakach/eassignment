@@ -15,7 +15,7 @@ const groupSchema = new mongoose.Schema({
         required: 'You must supply some discripiton about the assignment'
     },
     author: {
-        type: mongoose.Schema.ObjectId, 
+        type: mongoose.Schema.ObjectId,
         ref: 'User'
     }
 });
@@ -27,8 +27,8 @@ groupSchema.pre('save',  async function(next) {
         return next();
     };
     this.slug = slug(this.name);
-    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i'); 
-    const groupWithSlug = await this.constructor.find({slug: slugRegEx}); 
+    const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+    const groupWithSlug = await this.constructor.find({slug: slugRegEx});
     if(groupWithSlug.length){
         this.slug= `${this.slug}-${groupWithSlug.length + 1}`;
     }

@@ -6,38 +6,38 @@ include mixins/_comment
 block content
     .single
         .single__hero
-            img.single__image(src= `/uploads/${assignment.photo || 'store.png'}`)
+            img.single__image(src= `/uploads/${'store.png'}`)
             h2.title.title--single
-                a(href=`/assesments/${assignment.slug}`) #{assignment.name}
+                a(href=`/assignment/${assignment.slug}`) #{assignment.name}
     .single__details.inner
         - const ondate = h.moment(assignment.onDate).fromNow();
         - const realDate = h.moment(assignment.onDate).format('MMM-DD - YYYY');
         h1  Assignment submission #{ondate}
         p= assignment.description
-        
+
         p Date Of submission: #{realDate}
         if assignment.marks
-            p marks : #{assignment.marks} 
+            p marks : #{assignment.marks}
         h1 photos
-        //-if assignment.photos
-          //-each photo in assignment.photos
         .data-photos
           if assignment.photo
             each photo in assignment.photo
               a(href=`/uploads/${photo}` data-lightbox= "gallery")
                 img(src= `/uploads/${photo}` class="data-photo" style="height: 100px; width: auto; margin: 2px; padding: 2px; box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);")
+          else
+            p no photos avilable
           p
-            strong 
+            strong
               em(style="font-size: 1.5em;") -Added by
               br
               img.avatar(src= assignment.author.gravatar)
               em #{assignment.author.name}
-              p #{h.moment(assignment.created).format('MMM-DD - YYYY')} 
-          p #{h.moment(assignment.created).fromNow()} 
-      
+              p #{h.moment(assignment.created).format('MMM-DD - YYYY')}
+          p #{h.moment(assignment.created).fromNow()}
+
         if user
             +commentForm(assignment)
-        if assignment.comments   
+        if assignment.comments
             .reviews
                 each comment in assignment.comments
                     .review

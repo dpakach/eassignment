@@ -21,7 +21,7 @@ exports.getGroups = async (req, res, next) => {
 
 exports.getGroupBySlug = async (req, res, next) => {
   const group = await Group.findOne({slug: req.params.slug});
-  res.render('group', {tile: group.name, group});
+  res.render('group', {title: group.name, group});
 }
 
 var joinGroup = async(req, res, next) => {

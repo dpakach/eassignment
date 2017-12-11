@@ -3,6 +3,10 @@ mongoose.Promise = global.Promise;
 const slug = require('slugs');
 
 const groupSchema = new mongoose.Schema({
+    dataModel:{
+        type: String,
+        default: 'groups'
+    },
     name: {
         type: String,
         trim: true,

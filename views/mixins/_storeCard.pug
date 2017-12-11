@@ -4,7 +4,7 @@ mixin storeCard(assesment = {})
       .store__actions
         if user && assesment.author.equals(user._id)
           .store__action.store__action--edit
-            - const editUrl = `/${assesment.dataModel}s/${assesment._id}/edit` 
+            - const editUrl = `/${assesment.dataModel}s/${assesment._id}/edit`
             a(href= editUrl)
               != h.icon('pencil')
             - const def = 'store.png'
@@ -15,7 +15,7 @@ mixin storeCard(assesment = {})
       h2.title
         - const hUrl = `/${assesment.dataModel}/${assesment.slug}`
         a(href= hUrl) #{assesment.name}
-        
+
     .store__details
       - const ondate = h.moment(assesment.onDate).fromNow();
       p

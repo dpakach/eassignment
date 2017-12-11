@@ -3,10 +3,6 @@ mongoose.Promise = global.Promise;
 const slug = require('slugs');
 
 const assesmentSchema = new mongoose.Schema({
-    dataModel:{
-        type: String,
-        default: 'assesment'
-    },
     name: {
         type: String,
         trim: true,

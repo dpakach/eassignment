@@ -19,9 +19,8 @@ block content
                     input.button(type="submit" value="Join Group")
 
             else
-                form(action=`groups/${group.slug}/leave` method="Post")
+                form(action=`/groups/${group.slug}/leave` method="Post")
                     input.button(type="submit" value="Leave Group" style="background: #ff5577")
-
 
         br
         br

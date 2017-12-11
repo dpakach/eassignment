@@ -19,7 +19,7 @@ router.get('/', catchErrors(assesmentController.getAssesments));
 router.get('/groups', catchErrors(groupController.getGroups));
 router.get('/groups/:slug', catchErrors(groupController.getGroupBySlug));
 router.post('/groups/:slug/join',groupController.join);
-router.post('/groups/groups/:slug/leave', groupController.leave);
+router.post('/groups/:slug/leave', groupController.leave);
 router.get('/notifications', catchErrors(notificationController.getNotifications));
 
 
